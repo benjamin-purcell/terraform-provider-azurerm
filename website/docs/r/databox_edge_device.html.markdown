@@ -22,8 +22,21 @@ resource "azurerm_databox_edge_device" "example" {
   name                = "example-device"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-
   sku_name = "EdgeP_Base-Standard"
+  
+  tags = {
+    environment = "production"
+    managed_by  = "terraform"
+  }
+}
+```
+## Accessing Tag Values
+
+You can reference tag values in outputs or other resources:
+
+```hcl
+output "databox_edge_device_environment_tag" {
+  value = azurerm_databox_edge_device.example.tags["environment"]
 }
 ```
 
